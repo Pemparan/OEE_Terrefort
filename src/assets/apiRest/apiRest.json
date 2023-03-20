@@ -1,0 +1,12 @@
+{
+
+"_name":"DEV",
+"_apiBaseUrl":"http://localhost:50608/",
+
+"__name":"TEST",
+"__apiBaseUrl":"http://propalapp.dyndns.org/spdservices/",
+
+"name":"PROD",
+"apiBaseUrl":"http://propalapp.dyndns.org/spdservices/"
+
+}

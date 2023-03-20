@@ -1,0 +1,145 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-6">
+    <h2>Métricas</h2>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a>OEE</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <strong>Métricas</strong>
+      </li>
+    </ol>
+  </div>
+  <!-- <div class="col-lg-6" style="margin-top:25px;">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-3">
+        <label>Fecha Inicio:</label>
+        <input class="form-control " type="date" [(ngModel)]="fechaDesde" [ngModelOptions]="{standalone: true}"
+          style="margin-bottom: 10px;">
+      </div>
+      <div class="col-md-3">
+        <label>Fecha Término:</label>
+        <input class="form-control" type="date" [(ngModel)]="fechaHasta" [ngModelOptions]="{standalone: true}"
+          style="margin-bottom: 10px;">
+      </div>
+      <div class="col-md-3">
+        <div class="pull-left">
+          <div class="">
+            <form class="form-inline">
+              <button class="btn btn-primary dim btn-sm" style="margin-top: 20px; margin-right: 0px;"
+                (click)="obtenerDatos()">Desplegar
+                &nbsp;&nbsp;<i class="fa fa-pencil"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox" [hidden]="mostrarPareto">
+        <div class="ibox-content">
+          <div class="row">
+            <div class="col-lg-6">
+              <div id="container1"></div>
+            </div>
+            <div class="col-lg-3">
+              <ul class="stat-list" *ngIf="KPIs != null">
+                <li>
+                  <h2 class="no-margins">{{ KPIs.oee.OEEtotal }} %</h2>
+                  <h3>Eficiencia General</h3>
+                  <div class="progress progress-mini">
+                    <div [style]="sanitizeStyleWidth(KPIs.oee.OEEtotal)" class="progress-bar"></div>
+                  </div>
+                </li>
+                <li>
+                  <h2 class="no-margins">{{ KPIs.oee.disponibilidad }} %</h2>
+                  <h3>Disponibilidad</h3>
+                  <div class="progress progress-mini">
+                    <div [style]="sanitizeStyleWidth(KPIs.oee.disponibilidad)" class="progress-bar"></div>
+                  </div>
+                </li>
+                <li>
+                  <h2 class="no-margins ">{{ KPIs.oee.performance }} %</h2>
+                  <h3>Performance</h3>
+                  <div class="progress progress-mini">
+                    <div [style]="sanitizeStyleWidth(KPIs.oee.performance)" class="progress-bar"></div>
+                  </div>
+                </li>
+                <li>
+                  <h2 class="no-margins ">{{ KPIs.oee.calidad }} %</h2>
+                  <h3>Calidad</h3>
+                  <div class="progress progress-mini">
+                    <div [style]="sanitizeStyleWidth(KPIs.oee.calidad)" class="progress-bar"></div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-3">
+              <table class="table table-bordered table-condensed" *ngIf="KPIs != null">
+                <thead>
+                  <tr>
+                    <th>Causa</th>
+                    <th>Minutos de perdida</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let causa of KPIs.listaCausas">
+                    <td>{{causa.causa}}</td>
+                    <td>{{causa.minutosPerdidaTotal}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ibox" [hidden]="!mostrarPareto">
+        <div class="ibox-content">
+          <div class="row text-right">
+            <div class="col-md-12">
+              <button class="btn btn-success" (click)="verPareto(null)">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+              </button>
+            </div>
+            <div class="col-md-12">
+              <div id="container2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox" style="margin-bottom:0px;">
+        <div class="ibox-content">
+          <div class="row">
+            <div class="text-left col-md-4">
+              <input class="form-control" [(ngModel)]="fechaDesde" type="datetime-local" (change)="selectorFechas(999)">
+            </div>
+            <div class="text-center col-md-4">
+              <ng-container *ngFor="let tiempo of tiemposSeleccion; let i = index;">
+                <button *ngIf="!tiempo.prendido" class="btn btn-sm btn-success" style="margin-left:5px;"
+                  (click)="selectorFechas(i)">{{tiempo.tiempo}}</button>
+                <button *ngIf="tiempo.prendido" class="btn btn-sm btn-danger" style="margin-left:5px;"
+                  (click)="selectorFechas(i)">{{tiempo.tiempo}}</button>
+              </ng-container>
+            </div>
+            <div class="text-left col-md-4">
+              <input class="form-control" [(ngModel)]="fechaHasta" type="datetime-local" (change)="selectorFechas(999)">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

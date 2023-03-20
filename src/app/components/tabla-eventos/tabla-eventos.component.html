@@ -1,0 +1,96 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-6">
+    <h2>Tabla de eventos</h2>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a>OEE</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <strong>Eventos</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-6" style="margin-top:25px;">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-3">
+        <label>Fecha Inicio:</label>
+        <input class="form-control " type="date" [(ngModel)]="fechaDesde" [ngModelOptions]="{standalone: true}"
+          style="margin-bottom: 10px;">
+      </div>
+      <div class="col-md-3">
+        <label>Fecha Término:</label>
+        <input class="form-control" type="date" [(ngModel)]="fechaHasta" [ngModelOptions]="{standalone: true}"
+          style="margin-bottom: 10px;">
+      </div>
+      <div class="col-md-3">
+        <div class="pull-left">
+          <div class="">
+            <form class="form-inline">
+              <button class="btn btn-primary dim btn-sm" style="margin-top: 20px; margin-right: 0px;"
+                (click)="obtenerDatos()">Desplegar
+                &nbsp;&nbsp;<i class="fa fa-pencil"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h4>Tabla de eventos</h4>
+        </div>
+        <div class="ibox-content">
+
+          <div class="table-flow">
+            <div class="sk-spinner sk-spinner-wave" *ngIf="buscando">
+              <div class="sk-rect1"></div>
+              <div class="sk-rect2"></div>
+              <div class="sk-rect3"></div>
+              <div class="sk-rect4"></div>
+              <div class="sk-rect5"></div>
+            </div>
+            <table class="table table-condensed table-bordered" *ngIf="datos != null">
+              <thead style="position: sticky;top: 0" class="thead-dark">
+                <tr>
+                  <th>Evento</th>
+                  <th>Inicio</th>
+                  <th>Término</th>
+                  <th>Target</th>
+                  <th>Actual</th>
+                  <th>Minutos totales</th>
+                  <th>Minutos de perdida</th>
+                  <th>Causa</th>
+                  <th>Comentarios</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let record of datos.records">
+                  <tr *ngFor="let evento of record.eventos">
+                    <td>{{ record.descripcion }}</td>
+                    <td>{{ evento.fechaDesde | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td>{{ evento.fechaHasta | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+                    <td>{{ evento.valorTarget}}</td>
+                    <td>{{ evento.valorReal}}</td>
+                    <td>{{ evento.minutosPerdida}}</td>
+                    <td>{{ evento.perdida}}</td>
+                    <td><select class="form-control" [(ngModel)]="evento.razon"
+                        (change)="editarEvento(evento.id_evento,evento)">
+                        <option *ngFor="let razon of razones">{{ razon.Causa}}</option>
+                      </select></td>
+                    <td>{{ evento.comentarios }}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

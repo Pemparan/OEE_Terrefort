@@ -1,0 +1,18 @@
+.table-flow {
+    max-height: 700px;
+    overflow-x: scroll;
+    max-width: auto;
+    position: relative;
+}
+
+.header {
+    position: sticky;
+    top:0;
+}
+
+.hola{
+    font-size:100px;
+}
+
+
+
